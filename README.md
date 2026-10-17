@@ -32,6 +32,16 @@ Create a file named `api_key.json` in the project root, next to `index.html`, wi
 
 `api_key.json` is intentionally excluded from Git. Do not commit your real API key or publish it in a public repository. This app makes requests directly from the browser, so an API key used this way can be seen by visitors; for a public or production deployment, route weather requests through a server-side endpoint and keep the key on the server.
 
+### Deploy to GitHub Pages
+
+The included GitHub Actions workflow publishes the static site and creates `api_key.json` from an Actions secret during deployment. To enable it:
+
+1. In the repository on GitHub, open **Settings → Secrets and variables → Actions** and create a repository secret named `OPENWEATHER_API_KEY` containing a dedicated OpenWeatherMap key.
+2. Open **Settings → Pages** and set the build and deployment source to **GitHub Actions**.
+3. Push a commit to the `main` branch, or manually run the **Deploy to GitHub Pages** workflow from the **Actions** tab.
+
+The Actions secret keeps the key out of the repository history, but it does **not** make the deployed key private: the generated `api_key.json` is downloaded by the browser and can be viewed by site visitors. Use a dedicated key for this demo, apply any API restrictions and usage limits available in your OpenWeatherMap account, and monitor its usage. For a private key, use a server-side proxy instead.
+
 ### Run locally
 
 From the project directory, start any static web server. For example, if Python is installed:
